@@ -643,13 +643,8 @@ class PlannerState(rx.State):
     def senior_major_courses(self) -> list[str]:
         courses = MAJORS[self.major].get("Senior", [])
 
-        # LIU Pharmacy: AP Biology freshman year bumps the senior AP Biology
-        # slot to AP Physics I, or AP Physics C: Mechanics if they also took
-        # AP Physics I junior year.
         if self.major == "LIU Pharmacy" and self.f_sci == "AP Biology":
-            took_ap_physics_jr = "AP Physics I" in self.junior_electives or self.j_phys == "AP Physics I"
-            replacement = "AP Physics C: Mechanics" if took_ap_physics_jr else "AP Physics I"
-            courses = [replacement if c == "AP Biology" else c for c in courses]
+            courses = [course for course in courses if course != "AP Biology"]
 
         return courses
     # --- Math Major Overrides and Filtering Backend ---
