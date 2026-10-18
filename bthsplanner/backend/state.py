@@ -94,6 +94,12 @@ class PlannerState(rx.State):
             return "Participation in Government"
         return "Economics"
 
+    def _default_f_sci(self) -> str:
+        if not self.pre_credits.get("Biology/Living Environment", False):
+            return "Regents Biology"
+        else:
+            return self.f_sci
+
     def sync_so_eng_for_language(self):
         if self.sophomore_ap_count > 3 and self.so_eng == "AP Capstone Seminar":
             self.so_eng = "English 10"
@@ -105,7 +111,7 @@ class PlannerState(rx.State):
     #initial courses and major
     major: str = "Aerospace Engineering"
     f_hist: str = "Pre-AP World History"
-    f_sci: str = "Regents Physics"
+    f_sci: str = "Regents Biology"
     f_math: str = "Geometry"
     f_lang: str = "Spanish I"
     so_eng: str = "English 10"
@@ -221,7 +227,7 @@ class PlannerState(rx.State):
         self.major = val
         # Reset all dropdowns and electives to defaults on major change
         self.f_hist = "Pre-AP World History"
-        self.sync_f_sci()
+        self.f_sci = self._default_f_sci()
         self.f_math = "Geometry"
         if self.pre_credits.get("Language", False):
             self.f_lang = next_lang_level(self.pre_language)
