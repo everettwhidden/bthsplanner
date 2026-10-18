@@ -233,8 +233,8 @@ class PlannerState(rx.State):
             self.f_lang = next_lang_level(self.pre_language)
         else:
             self.f_lang = self.pre_language
-        self.so_eng = "English 10"
-        self.so_hist = "AP European History"
+        self.so_eng = self.so_eng
+        self.so_hist = self.so_hist
         self.j_eng = "English 11"
         self.j_his = self._default_j_his() 
         self.j_phys = "Regents Physics"
