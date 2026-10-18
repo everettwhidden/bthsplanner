@@ -86,6 +86,14 @@ class PlannerState(rx.State):
         else:
             self.f_sci = "Regents Physics"
 
+    def _default_j_his(self) -> str:
+        # what junior history should default to, based on the US History credit
+        if not self.pre_credits.get("US History", False):
+            return "Regents US History"
+        if self.major == "Finance" or self.has_econ_gov_conflict:
+            return "Participation in Government"
+        return "Economics"
+
     def sync_so_eng_for_language(self):
         if self.sophomore_ap_count > 3 and self.so_eng == "AP Capstone Seminar":
             self.so_eng = "English 10"
@@ -222,7 +230,7 @@ class PlannerState(rx.State):
         self.so_eng = "English 10"
         self.so_hist = "AP European History"
         self.j_eng = "English 11"
-        self.j_his = "Regents US History"
+        self.j_his = self._default_j_his() 
         self.j_phys = "Regents Physics"
         self.j_math = self.j_math if self.math_is_accelerated else "Pre-Calculus"
         self.sn_eng = "Creative Writing"
@@ -572,7 +580,7 @@ class PlannerState(rx.State):
         #True if the student already has AP Macroeconomics or AP Macroeconomics / AP Microeconomics (One Semester each)
         conflict_courses = {
             "AP Macroeconomics with Government",
-            "AP Macroeconomics / AP Microeconomics (One Semester each)",
+            "AP Macroeconomics / AP Microeconomics",
         }
         sources = (
             self.junior_major_courses + self.senior_major_courses +
