@@ -10,16 +10,22 @@ def nav_link(label: str, href: str) -> rx.Component:
     # active tab comes from the current url, so there's nothing to flash
     is_active = PlannerState.router.page.path == href
     return rx.link(
-        rx.text(
-            label,
-            size="3",
+        rx.box(
+            rx.text(
+                label,
+                size="3",
+                color="inherit",
+                weight= "medium",
+            ),
             color=rx.cond(is_active, theme.text, theme.text_dim),
-            weight=rx.cond(is_active, "medium", "normal"),
+            padding_x="10px",
+            padding_y="8px",
+            border_radius="6px",
+            transition="background-color 0s ease, color 0s ease",
+            _hover={"background_color": "rgba(128, 128, 128, 0.15)", "color": theme.text},
         ),
         href=href,
         text_decoration="none",
-        padding_x="10px",
-        padding_y="8px",
         border_bottom=rx.cond(is_active, "2px solid #3b82f6", "2px solid transparent"),
     )
 def navigation_layout(content: rx.Component, full_width: bool = False, zero_gap: bool = False, show_border: bool = True) -> rx.Component:
@@ -39,6 +45,8 @@ def navigation_layout(content: rx.Component, full_width: bool = False, zero_gap:
                         ),
                         rx.text(
                             "BTHS Planner", size="6", weight="bold", color=theme.text,
+                            transition="opacity 0s ease",
+                            _hover={"opacity": "0.7"},
                         ),
                         spacing="3",
                         align_items="center",
