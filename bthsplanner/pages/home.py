@@ -11,46 +11,40 @@ from bthsplanner.components import (
 @rx.page(route="/", title="BTHS Planner", description="Brooklyn Tech's Course Planner", on_load=PlannerState.change_tab("Home"))
 def home_page() -> rx.Component:
     home_page_content = rx.box(
-        # --- HERO SECTION (Changes based on Light/Dark Mode) ---
+        # --- HERO SECTION ---
         rx.box(
-            rx.image(
-                src="building.png",  
-                position="absolute",
-                bottom="0",
-                right="0",
-                max_height="100%",        # Scales up to full container height
-                width="auto",             # Preserves natural aspect ratio
-                object_fit="contain",
-                object_position="bottom right",
-                transform="scale(1.2)",
-                transform_origin="bottom right",  # Forces alignment to bottom-right corner
-            ),
-            
+            # text takes whatever width the image leaves, so it wraps instead of overlapping
             rx.vstack(
                 rx.heading(
-                    "The course platform for the",
+                    "Planning at scale for the nation's largest high school",
                     font_size="45px",
                     color="white",
                     weight="bold",
                     line_height="1.1",
-                ),
-                rx.heading(
-                    "nation's largest high school",
-                    font_size="45px",
-                    color="white",
-                    weight="bold",
-                    line_height="1.1",
+                    text_wrap="balance",
                 ),
                 align_items="start",
-                position="absolute",
-                bottom="3rem",
-                left="3rem",
-                z_index="10",
+                flex="1",
+                min_width="0",
+                padding_left="3rem",
+                padding_bottom="3rem",
             ),
+            rx.image(
+                src="building.png",
+                height="120%",          # same size the old scale(1.2) gave
+                width="auto",
+                max_width="55%",        # image never takes more than 55% so the text always has room
+                flex_shrink="0",
+                object_fit="contain",
+                object_position="bottom right",
+            ),
+            display="flex",
+            align_items="flex-end",     # both sit at the bottom
+            justify_content="space-between",
             background=rx.color_mode_cond(
-                    f"linear-gradient(180deg in oklch, {lighter_aa_blue} 0%, {gradient} 70%, {gradient} 100%)",  # Light mode gradient
-                    f"linear-gradient(180deg in oklch, {lighter_aa_blue} 0%, {gradient} 70%, {gradient} 100%)",  # Dark mode gradient
-                ),
+                f"linear-gradient(180deg in oklch, {lighter_aa_blue} 0%, {gradient} 70%, {gradient} 100%)",
+                f"linear-gradient(180deg in oklch, {lighter_aa_blue} 0%, {gradient} 70%, {gradient} 100%)",
+            ),
             width="100vw",
             height="calc(100vh - 55px)",
             position="relative",
