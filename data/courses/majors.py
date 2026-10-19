@@ -15,7 +15,7 @@ MAJORS = {
     "Mechatronics & Robotics": {"room": "2N4", "Junior": ["Robotics Engineering", "PLTW Digital Electronics"], "Senior": ["Mechatronics with LabView", "PLTW Computer Integrated Manufacturing", ]},
     "Media Communications": {"room": "1N4 and 1N6", "Junior": ["Video Game Design with Unity", "Adobe Visual Design & Print Production"], "Senior": ["Adobe Visual Design & Film Production", "Digital Animation", "Digital Photography",]},
     "Neuroscience": {"room": "3N1", "Junior": ["AP Biology"], "Senior": ["AP Psychology", "Introduction to Neuroscience", "Bioorganic Chemistry"], "note": "*Those who took AP Biology freshman year will take AP Chemistry junior year instead."},
-    "Physics": {"room": "2N1", "Junior": ["Astronomy & Astrophysics", "AP Physics I"], "Senior": ["Modern Physics", "AP Physics II", "AP Physics C: Electricity & Magnetism"]},
+    "Physics": {"room": "2N1", "Junior": ["Astronomy & Astrophysics", "AP Physics I"], "Senior": ["Modern Physics", "AP Physics II", "AP Physics C: Electricity & Magnetism", "AP Physics C: Mechanics"]},
     "Social Science Research": {"room": "6N8", "Junior": ["Sociology", "AP Human Geography"], "Senior": ["Cultural & Physical Anthropology", "AP Psychology", "Social Science Research"]},
    
 }
