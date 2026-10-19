@@ -7,6 +7,6 @@ SENIOR_GOV_COURSES = ("AP US Government", "Participation in Government", "AP Com
 
 PHYSICS_MAJOR_SN_COURSES = ("AP Physics II", "AP Physics C: Mechanics", "AP Physics C: Electricity & Magnetism")
 
-EXPLORE_PAGE_SIZE = 48
+
 
 AP_LOTES = ["AP Chinese Language & Culture", "AP French Language & Culture", "AP German Language & Culture", "AP Italian Language & Culture"]

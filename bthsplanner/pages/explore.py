@@ -7,51 +7,6 @@ from bthsplanner.components import (
     course_detail_modal,
     explore_sidebar
 )
-def pagination_bar() -> rx.Component:
-    on_first = ExploreState.explore_page_num <= 1
-    on_last = ExploreState.explore_page_num >= ExploreState.explore_total_pages
-    return rx.hstack(
-        rx.button(
-            rx.icon("chevron-left", size=16),
-            "Previous",
-            on_click=ExploreState.prev_explore_page,
-            disabled=on_first,
-            variant="ghost",
-            color_scheme="gray",
-            size="3",
-            style={
-                "color": rx.cond(on_first, theme.text_dim, theme.text),
-                "cursor": rx.cond(on_first, "not-allowed", "pointer"),
-                "font_weight": "500",
-            },
-        ),
-        rx.text(
-            "Page ",
-            rx.text.span(ExploreState.explore_page_num.to_string(), font_weight="700", color=theme.text),
-            " of " + ExploreState.explore_total_pages.to_string(),
-            color=theme.text_dim,
-            size="3",
-        ),
-        rx.button(
-            "Next",
-            rx.icon("chevron-right", size=16),
-            on_click=ExploreState.next_explore_page,
-            disabled=on_last,
-            variant="ghost",
-            color_scheme="gray",
-            size="3",
-            style={
-                "color": rx.cond(on_last, theme.text_dim, theme.text),
-                "cursor": rx.cond(on_last, "not-allowed", "pointer"),
-                "font_weight": "500",
-            },
-        ),
-        justify="center",
-        align="center",
-        spacing="6",
-        width="100%",
-        margin_top="24px",
-    )
 
 @rx.page(route="/explore", title="BTHS Planner - Explore Courses", description="Explore all of the course offerings at Brooklyn Technical High School.", on_load=PlannerState.change_tab("Explore")) 
 def explore_page() -> rx.Component:
@@ -70,7 +25,8 @@ def explore_page() -> rx.Component:
         ),
 
         rx.text(
-            "Showing " + ExploreState.explore_page_count.to_string() + "/" + ExploreState.explore_catalog_count.to_string() + " courses",
+            "Showing " + ExploreState.explore_catalog_count.to_string()
+            + " of " + ExploreState.explore_total_count.to_string() + " courses",
             color=theme.text,
             size="3",
         ),
@@ -79,7 +35,7 @@ def explore_page() -> rx.Component:
         # Fixed Grid layout setup to ensure single search results maintain standard sizing instead of stretching
         rx.box(
             rx.foreach(
-                ExploreState.explore_page_catalog,
+                ExploreState.explore_catalog,
                 lambda course: rx.box(
                     rx.vstack(
                         # Header Row: Course Title on top, Badges side-by-side underneath
@@ -191,7 +147,6 @@ def explore_page() -> rx.Component:
             width="100%",
         
         ),
-        pagination_bar(),
         rx.text(
             "All course information and data is found through online sources or from personal knowledge. Please contact your guidance counselor if you are unsure about any course data. Additionally, AI was used to summarize each course and create it's description. Because AI can make mistakes, some descriptions may be incorrect or inaccurate. If you notice any mistakes, please contact us directly.",
             color=theme.text_dim,
