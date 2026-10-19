@@ -365,19 +365,25 @@ class PlannerState(rx.State):
         if course_name in self.selected_senior_physics:
             if len(self.selected_senior_physics) > 1:
                 self.selected_senior_physics.remove(course_name)
-                if course_name == "AP Physics II":
-                    self.change_sn_phys_c("AP Physics C: Electricity & Magnetism")
         else:
             self.selected_senior_physics.add(course_name)
             if self.senior_periods > 10 or self.senior_ap_count > 3:
-                self.selected_senior_physics.remove(course_name)
+                other = [c for c in self.selected_senior_physics if c != course_name]
+                for c in other:
+                    self.selected_senior_physics.remove(c)
 
     def change_sn_phys_c(self, new_course: str):
-        # set has no index, so swap by remove + add (only if the old one was selected)
-        if self.sn_phys_c in self.selected_senior_physics:
-            self.selected_senior_physics.remove(self.sn_phys_c)
+        old_course = self.sn_phys_c
+        if old_course in self.selected_senior_physics:
+            self.selected_senior_physics.remove(old_course)
             self.selected_senior_physics.add(new_course)
+            if self.senior_periods > 10:
+                # too many periods, undo the swap
+                self.selected_senior_physics.remove(new_course)
+                self.selected_senior_physics.add(old_course)
+                return
         self.sn_phys_c = new_course
+        
 
     def change_j_eng(self, val: str):
         snapshot = self._export_progress_dict()
@@ -822,6 +828,15 @@ class PlannerState(rx.State):
             "Senior": "senior_electives",
         }
         ok = True
+
+        if (
+            self.major == "Physics"
+            and self._calculate_total_periods("Senior") > 10
+            and "AP Physics II" in self.selected_senior_physics
+            and len(self.selected_senior_physics) > 1
+        ):
+            self.selected_senior_physics.remove("AP Physics II")
+        
         for year, attr in year_to_electives.items():
             while self._calculate_total_periods(year) > 10:
                 electives = getattr(self, attr)

@@ -125,21 +125,13 @@ def senior_physics_cards() -> rx.Component:
     ap_ii = "AP Physics II"
     return rx.vstack(
         toggle_card(course_card("Major", ap_ii), **physics_toggle_args(ap_ii)),
-        rx.cond(
-            PlannerState.selected_senior_physics.contains(ap_ii),
-            # AP Physics II picked -> choose mechanics or E&M
-            toggle_dropdown_card(
-                "Major",
-                DropdownOptions.sn_phys_c_opts,
-                PlannerState.sn_phys_c,
-                PlannerState.change_sn_phys_c,
-                **physics_toggle_args(PlannerState.sn_phys_c),
-            ),
-            # otherwise just the regular card for whichever C is chosen
-            toggle_card(
-                course_card("Major", PlannerState.sn_phys_c),
-                **physics_toggle_args(PlannerState.sn_phys_c),
-            ),
+        # always show the dropdown so they can pick mechanics or E&M
+        toggle_dropdown_card(
+            "Major",
+            DropdownOptions.sn_phys_c_opts,
+            PlannerState.sn_phys_c,
+            PlannerState.change_sn_phys_c,
+            **physics_toggle_args(PlannerState.sn_phys_c),
         ),
         course_card("Major", "Modern Physics"),
         width="100%", spacing="3", margin_top="0px",
