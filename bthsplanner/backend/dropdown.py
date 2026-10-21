@@ -69,9 +69,9 @@ class DropdownOptions(PlannerState):
 
         if not self.pre_credits.get("US History", False):
             if self.major != "Finance":
-                opts = [o for o in opts if o not in ( "Economics", "None (free period, econ senior year)")]
+                opts = [o for o in opts if o not in ("Participation in Government", "Economics", "None (free period, econ senior year)")]
             else:
-                opts = [o for o in opts if o not in ( "Economics", "None (free period, gov senior year)")]
+                opts = [o for o in opts if o not in ("Participation in Government", "Economics", "None (free period, gov senior year)")]
         else: opts = [o for o in opts if o not in ("Regents US History")]
         
         prior = self._courses_for_year("Freshman") | self._courses_for_year("Sophomore")
