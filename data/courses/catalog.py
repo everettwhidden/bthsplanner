@@ -415,8 +415,8 @@ COURSE_CATALOG = {
         "grades": ["Sophomore", "Junior"],
         "color" : lang_color
     },
-    "Choir": {
-        "description": "This pass/fail performing ensemble class develops vocal technique, sight-reading, and part-singing through the rehearsal and performance of choral repertoire. It's open to students in any grade and can be taken more than once.",
+    "Chorus": {
+        "description": "This performing ensemble class develops vocal technique, sight-reading, and part-singing through the rehearsal and performance of choral repertoire. It's open to students in any grade and can be taken more than once.",
         "periods": 1,
         "credits": 0.0,
         "is_elective": True,
