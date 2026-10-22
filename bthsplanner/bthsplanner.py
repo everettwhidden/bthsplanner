@@ -8,9 +8,9 @@ app = rx.App(
     style=hide_watermark_style,
     theme=rx.theme(appearance="light"),
     head_components=[
-        rx.el.meta(property="og:image", content="https://www.bths.edu/pics/header_logo.png"),
+        rx.el.meta(property="og:image", content="https://bthsplanner.com/preview.png"),
         rx.el.meta(name="twitter:card", content="summary_large_image"),
-        rx.el.meta(name="twitter:image", content="https://www.bths.edu/pics/header_logo.png"),
+        rx.el.meta(name="twitter:image", content="https://bthsplanner.com/preview.png"),
         rx.el.link(rel="icon", type="image/png", href="/favicon.ico"),
         rx.el.script(
             src="https://umami-production-07b7.up.railway.app/script.js",
