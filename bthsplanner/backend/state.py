@@ -225,16 +225,7 @@ class PlannerState(rx.State):
     
     def change_major(self, val: str):
         self.major = val
-        # Reset all dropdowns and electives to defaults on major change
-        self.f_hist = "Pre-AP World History"
-        self.f_sci = self._default_f_sci()
-        self.f_math = "Geometry"
-        if self.pre_credits.get("Language", False):
-            self.f_lang = next_lang_level(self.pre_language)
-        else:
-            self.f_lang = self.pre_language
-        self.so_eng = self.so_eng
-        self.so_hist = self.so_hist
+        #reset junior and senior courses
         self.j_eng = "English 11"
         self.j_his = self._default_j_his() 
         self.j_phys = "Regents Physics"
@@ -243,8 +234,6 @@ class PlannerState(rx.State):
         self.sn_his = "Participation in Government" if self.has_econ_gov_conflict else "Economics"
         self.sn_ec = "Economics"
         self.sn_gov = "Participation in Government"
-        self.freshman_electives = []
-        self.sophomore_electives = []
         self.junior_electives = []
         self.senior_electives = []
         self.sn_math = "Multivariable Calculus" if self.math_is_accelerated else "AP Calculus BC"
