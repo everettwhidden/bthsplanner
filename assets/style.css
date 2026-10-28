@@ -145,11 +145,11 @@ html body[data-scroll-locked] {
 /*-------------------------LIGHT / DARK MODE -----------------------------
 /* dark is the current look */
 :root, .dark {
-  --illini-blue: #101827;
-  --lighter-aa-blue: #1f2937;
+  --illini-blue: #101926;
+  --lighter-aa-blue: #1e2733;
   --text: #fafafa;
   --text-dim: rgba(250, 250, 250, 0.6);
-  --border: #4b4f5c;
+  --border: #363a44;
   --english_color : #ab8e0fff;
   --history_color :  #7a00aadb;
   --science_color : #0b9c32ff;
@@ -166,7 +166,7 @@ html body[data-scroll-locked] {
   --lighter-aa-blue: #ffffff;
   --text: #050505;
   --text-dim: rgba(35, 36, 39, 0.6);
-  --border: #afb6ca;
+  --border: #e2e5ee;
   --english_color : rgb(234, 194, 17);
   --history_color :  #ac30dddb;
   --science_color : rgb(41, 210, 86);
