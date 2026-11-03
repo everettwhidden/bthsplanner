@@ -142,6 +142,17 @@ html body[data-scroll-locked] {
   padding-right: 0 !important;
 }
 
+/* explore page cards */
+.explore-card {
+    --card-bg: var(--lighter-aa-blue);
+    background-color: var(--card-bg);
+    cursor: pointer;
+}
+
+/* mixes a bit of grey into the card color, works in light and dark */
+.explore-card:hover {
+    --card-bg: color-mix(in srgb, var(--lighter-aa-blue) 88%, grey 12%);
+}
 /*-------------------------LIGHT / DARK MODE -----------------------------
 /* dark is the current look */
 :root, .dark {

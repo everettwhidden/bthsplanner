@@ -7,6 +7,9 @@ from bthsplanner.components import (
     course_detail_modal,
     explore_sidebar
 )
+def meta_badge(content) -> rx.Component:
+    # all card badges share one gray style
+    return rx.badge(content, color_scheme="gray", variant="soft", radius="full")
 
 @rx.page(route="/explore", title="BTHS Planner - Explore Courses", description="Explore all of the course offerings at Brooklyn Technical High School.", on_load=PlannerState.change_tab("Explore")) 
 def explore_page() -> rx.Component:
@@ -38,100 +41,57 @@ def explore_page() -> rx.Component:
                 ExploreState.explore_catalog,
                 lambda course: rx.box(
                     rx.vstack(
-                        # Header Row: Course Title on top, Badges side-by-side underneath
-                        rx.vstack(
-                            # 1. Course Name (Top line)
-                            rx.text(course["name"], size="5", weight="bold", color=theme.text),
-                            
-                            # 2. Badges Row (Bottom line, side-by-side)
-                            rx.hstack(
-                                # Semester Length Badge
-                                rx.badge(
-                                    rx.cond(course["semesters"] == 1, "1 semester", "2 semesters"),
-                                    color_scheme="purple", 
-                                    variant="soft", 
-                                    radius="full"
-                                ),
-                                # Period Badge
-                                rx.badge(
-                                    rx.cond(
-                                        course['periods'] == 1,
-                                        f"{course['periods']} period",
-                                        f"{course['periods']} periods"
-                                    ),
-                                    color_scheme="orange", 
-                                    variant="soft", 
-                                    radius="full"
-                                ),
-                                rx.badge(
-                                    f"{course['credits']} credits",
-                                    color_scheme="teal", 
-                                    variant="soft",
-                                    radius = "full"
-                                ),
+                        rx.text(course["name"], size="5", weight="bold", color=theme.text, ),
+                        rx.hstack(
+                            meta_badge(
+                                rx.cond(course["semesters"] == 1, "1 semester", "2 semesters"),
+                            ),
+                            meta_badge(
                                 rx.cond(
-                                    course["is_elective"],
-                                    rx.badge("Elective", color_scheme="pink", variant="soft", radius="full")
+                                    course["periods"] == 1,
+                                    f"{course['periods']} period",
+                                    f"{course['periods']} periods",
                                 ),
-                                rx.foreach(
-                                    course["grade_badges"].to(list[str]),
-                                    lambda grade: rx.badge(grade, color_scheme="blue", variant="soft", radius="full")
-                                
-                                ),
+                            ),
+                            meta_badge(f"{course['credits']} credits"),
+                            rx.cond(
+                                course["is_elective"],
+                                meta_badge("Elective"),
+                            ),
+                            rx.foreach(
+                                course["grade_badges"].to(list[str]),
+                                lambda grade: meta_badge(grade),
+                            ),
                             width="100%",
                             align_items="start",
                             spacing="1",
-                            wrap = "wrap"
-                            )
+                            wrap="wrap",
                         ),
-                        
-                        # Description Container with a smooth dark-grey fade overlay at the bottom
-                        rx.box(
+                        rx.cond(
+                            course["summary"] != "",
                             rx.text(
-                                course["description"], 
-                                size="2", 
-                                color=theme.text, 
-                                margin_top="8px"
+                                course["summary"],
+                                size="2",
+                                color=theme.text,
+                                # clamp to 2 lines so a long summary can't push the card taller
+                                style={
+                                    "display": "-webkit-box",
+                                    "WebkitLineClamp": "2",
+                                    "WebkitBoxOrient": "vertical",
+                                    "overflow": "hidden",
+                                },
                             ),
-                            # Gradient overlay fading  into the card color 
-                            rx.box(
-                                position="absolute",
-                                bottom="0",
-                                left="0",
-                                right="0",
-                                height="30px",
-                                background=f"linear-gradient(to bottom, transparent 0%, {theme.lighter_aa_blue} 100%)",
-                                pointer_events="none",
-                            ),
-                            position="relative",
-                            height="75px",          
-                            overflow="hidden",
-                            width="100%",
-                        ),
-                        
-                        
-                        
-                        rx.spacer(),
-                        
-                        # Action Button Context
-                        rx.button(
-                            "View Details",
-                            width="100%",
-                            background_color="#2563eb",
-                            color="white",
-                            cursor="pointer",
-                            margin_top="16px",
-                            on_click=lambda: PlannerState.open_course_details(course["name"])
                         ),
                         align_items="start",
-                        height="100%",
                         spacing="2",
                     ),
-                    background_color=theme.lighter_aa_blue,
+                    on_click=PlannerState.open_course_details(course["name"]),
+                    class_name="explore-card",
                     border=f"1px solid {theme.border}",
                     border_radius="12px",
                     padding="24px",
-                    height="250px",
+                    padding_top = "15px",
+                    height="130px",
                     width="100%",
                     overflow="hidden",
                 )
@@ -141,7 +101,7 @@ def explore_page() -> rx.Component:
 
             style={
                 "display": "grid",
-                "grid_template_columns": "repeat(auto-fill, minmax(440px, 1fr))",
+                "grid_template_columns": "repeat(auto-fill, minmax(400px, 1fr))",
                 "gap": "24px",
             },
             width="100%",

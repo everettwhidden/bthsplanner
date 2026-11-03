@@ -1,4 +1,4 @@
-from data.courses import COURSE_CATALOG, MAJORS, AP_COURSES
+from data.courses import COURSE_CATALOG, MAJORS, AP_COURSES, SUMMARIES
 
 from .helpers import grade_badges
 
@@ -65,6 +65,7 @@ def filter_explore_catalog(
 
         results.append({
             "name": name,
+            "summary": SUMMARIES.get(name, ""),
             "description": data.get("description", ""),
             "periods": data.get("periods", 1),
             "semesters": data.get("semesters", 2),
