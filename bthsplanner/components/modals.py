@@ -5,123 +5,80 @@ from bthsplanner.backend import PlannerState
 
 required_courses_labels = ["Major Course", "Required Course"]
 
+def detail_line(label: str, value) -> rx.Component:
+    # bold label followed by a plain value, e.g. "Periods: 1"
+    return rx.text(
+        rx.text.span(f"{label}: ", weight="bold"),
+        value,
+        font_size="18px",
+        color=theme.text,
+    )
+
+
 def course_detail_modal() -> rx.Component:
+    course = PlannerState.active_modal_course
     return rx.dialog.root(
         rx.dialog.content(
             rx.box(
                 rx.vstack(
-                    # 1. Top Header Row: Course Title & Close Button
+                    # title + close button
                     rx.hstack(
-                        rx.text(PlannerState.active_modal_course["name"], font_size="25px", weight="bold", color=theme.text),
+                        rx.text(course["name"], font_size="25px", weight="bold", color=theme.text),
                         rx.spacer(),
                         rx.button(
-                            "✕", 
-                            variant="ghost", 
-                            color_scheme="gray", 
-                            on_click=PlannerState.close_course_details, 
+                            "✕",
+                            variant="ghost",
+                            color_scheme="gray",
+                            on_click=PlannerState.close_course_details,
                             style={"cursor": "pointer", "font_size": "16px"}
                         ),
                         width="100%",
                         align_items="center"
                     ),
-                    
-                    # 2. Badges Row: Perfectly matches your Explore Page design
-                    rx.hstack(
-                        # Semester Length Badge
-                        rx.badge(
-                            rx.cond(PlannerState.active_modal_course["semesters"] == "1", "1 semester", "2 semesters"),
-                            color_scheme="purple", 
-                            variant="soft", 
-                            radius="full",
-                            size="3",
-                            style={"font_size": "14px", "padding": "6px 12px"}
-                        ),
-                        # Period Badge
-                        rx.badge(
-                            rx.cond(
-                                PlannerState.active_modal_course["periods"] == "1",
-                                "1 period",
-                                f"{PlannerState.active_modal_course['periods']} periods"
-                            ),
-                            color_scheme="orange", 
-                            variant="soft", 
-                            radius="full",
-                            size="3",
-                            style={"font_size": "14px", "padding": "6px 12px"}
-                        ),
-                        # Credits Badge
-                        rx.badge(
-                            f"{PlannerState.active_modal_course['credits']} credits",
-                            color_scheme="teal",
-                            variant="soft",
-                            radius="full",
-                            size="3",
-                            style={"font_size": "14px", "padding": "6px 12px"}
-                        ),
-                        # Elective Badge
-                        rx.cond(
-                            PlannerState.active_modal_course["is_elective"],
-                            rx.badge(
-                                "Elective", 
-                                color_scheme="pink", 
-                                variant="soft", 
-                                radius="full",
-                                size="3",
-                                style={"font_size": "14px", "padding": "6px 12px"}
-                            )
-                        ),
-                        # Grade Badges (Dynamic)
-                        rx.foreach(
-                            PlannerState.active_modal_course["grade_badges"].to(list[str]),
-                            lambda grade: rx.badge(
-                                grade, 
-                                color_scheme="blue", 
-                                variant="soft", 
-                                radius="full",
-                                size="3",
-                                style={"font_size": "14px", "padding": "6px 12px"}
-                            )
-                        ),
-                                        
-                        spacing="3",
+
+                    # course info as plain text lines
+                    rx.vstack(
+                        detail_line("Periods", course["periods"].to(str)),
+                        detail_line("Semesters", course["semesters"].to(str)),
+                        detail_line("Credits", course["credits"].to(str)),
+                        detail_line("Grades", course["grade_badges"].to(list[str]).join(", ")),
+                        detail_line("Elective", rx.cond(course["is_elective"], "Yes", "No")),
+                        align_items="start",
+                        spacing="1",
                         margin_top="6px",
-                        margin_bottom="12px"
+                        margin_bottom="12px",
                     ),
-                    
-                    # 3. Full Un-truncated Description: No line limits, lets long text run completely free
+
+                    # full description
+                    rx.text("Description", font_size = "18px", weight="bold", color=theme.text),
                     rx.text(
-                        PlannerState.active_modal_course["description"], 
-                        font_size="20px", 
-                        color=theme.text, 
+                        course["description"],
+                        font_size="20px",
+                        color=theme.text,
                         line_height="1.6",
-                        margin_top="4px"
+                        margin_top="0px"
                     ),
-                    
-                    
-                    
+
                     align_items="start",
                     spacing="3",
                     width="100%"
                 ),
-                # Stretched layout style that mirrors the explore card structure beautifully but wider
                 style={
-                    "background_color": theme.lighter_aa_blue,   
-                    "border": f"1px solid {theme.border}",     
+                    "background_color": theme.lighter_aa_blue,
+                    "border": f"1px solid {theme.border}",
                     "border_radius": "12px",
                     "padding": "24px",
                     "width": "100%",
                     "height": "100%"
                 }
             ),
-            # Controls the overall modal container container boundaries (comfortable desktop size)
             style={
-                "max_width": "900px", 
+                "max_width": "900px",
                 "width": "90vw",
-                
-                "height" : "auto",
+                "height": "auto",
                 "max_height": "900px",
-                "background": "transparent", 
-                "padding": "0", 
+                "background": "transparent",
+                "padding": "0",
                 "border": "none"
             }
         ),
