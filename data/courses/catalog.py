@@ -76,8 +76,8 @@ COURSE_CATALOG = {
         "semesters" : 1,
         "color" : history_color
     },
-    "AP Computer Science Applications - JAVA": {
-        "description": "This is the core junior-year course for the Software Engineering major, teaching object-oriented programming in Java, including classes, arrays, and 2D array structures, alongside algorithm design and analysis. Students build a portfolio of Java programs while preparing for the AP Computer Science A exam.",
+    "AP Computer Science Applications": {
+        "description": "This is the core junior-year course for the Computer Engineering major, teaching object-oriented programming in Java, including classes, arrays, and 2D array structures, alongside algorithm design and analysis. Students build a portfolio of Java programs while preparing for the AP Computer Science A exam.",
         "periods": 1,
         "credits": 1.0,
         "is_elective": True,
@@ -468,7 +468,7 @@ COURSE_CATALOG = {
         "color" : english_color
     },  
     "Cyber Security": {
-        "description": "This senior-year Software Engineering major course covers network security fundamentals, including data encryption, firewalls, and defensive scripting techniques used to protect systems from attack.",
+        "description": "This senior-year Computer Engineering major course covers network security fundamentals, including data encryption, firewalls, and defensive scripting techniques used to protect systems from attack.",
         "periods" : 1,
         "credits": 1.0,
         "semesters": 1,
@@ -634,7 +634,7 @@ COURSE_CATALOG = {
         "color" : lang_color
     },
     "Fundamentals of IT Infrastructure": {
-        "description": "This junior-year Software Engineering major course covers IT infrastructure fundamentals, including networks and systems configuration.",
+        "description": "This junior-year Computer Engineering major course covers IT infrastructure fundamentals, including networks and systems configuration.",
         "periods": 1,
         "semesters" : 1,
         "credits": 0.5,
@@ -642,7 +642,7 @@ COURSE_CATALOG = {
         "grades": ["Junior"]
     },
     "Big Data: Warehousing and Analytics": {
-        "description": "This junior-year Software Engineering major course covers big data warehousing and analytics, including how large datasets are stored, organized, and queried.",
+        "description": "This junior-year Computer Engineering major course covers big data warehousing and analytics, including how large datasets are stored, organized, and queried.",
         "periods": 1,
         "semesters" : 1,
         "credits": 0.5,
@@ -828,7 +828,7 @@ COURSE_CATALOG = {
         "grades": ["Junior"]
     },
     "Mobile Application Development": {
-        "description": "This senior-year Software Engineering major course has students design and build mobile apps, covering interactive app interfaces, deployment, and managing user data and app state.",
+        "description": "This senior-year Computer Engineering major course has students design and build mobile apps, covering interactive app interfaces, deployment, and managing user data and app state.",
         "periods": 1,
         "credits": 1.0,
         "is_elective": False,
@@ -1094,7 +1094,7 @@ COURSE_CATALOG = {
         "grades": ["Junior", "Senior"]
     },
     "Web Development": {
-        "description": "This senior-year Software Engineering major course covers front-end web development, including page layout, styling, and building interactive page components and user interfaces.",
+        "description": "This senior-year Computer Engineering major course covers front-end web development, including page layout, styling, and building interactive page components and user interfaces.",
         "periods" : 1,
         "credits": 1.0,
         "semesters": 1,

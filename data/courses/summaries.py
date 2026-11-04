@@ -11,7 +11,7 @@ SUMMARIES = {
     "AP Chemistry": "College-level chemistry with heavy math and guided-inquiry labs.",
     "AP Chinese Language & Culture": "College-level Mandarin focused on speaking, reading, and culture.",
     "AP Comparative Government": "Compares the politics of six countries, including China, Iran, and Nigeria.",
-    "AP Computer Science Applications - JAVA": "Object-oriented programming in Java; prep for AP CS A.",
+    "AP Computer Science Applications": "Object-oriented programming in Java; prep for AP CS A.",
     "AP Computer Science Principles": "Big ideas of computing, taught with block-based coding and a project.",
     "AP Cybersecurity": "Hands-on look at defending and attacking networks and systems.",
     "AP English Language & Composition": "Rhetoric and argument writing built on nonfiction texts.",

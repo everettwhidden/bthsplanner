@@ -1,6 +1,6 @@
 import math
 
-from data.courses import COURSE_CATALOG, alternate_list, alternates_with_gym
+from data.courses import COURSE_CATALOG, alternate_list, alternates_with_gym, MAJORS
 
 
 def next_lang_level(lang: str) -> str:
@@ -53,3 +53,11 @@ def calculate_total_periods(courses: set[str]) -> int:
     # (or two periods for a pair of double-period classes)
     semester_room = math.ceil(semester_1pd / 2) + math.ceil(semester_2pd / 2) * 2
     return full_year_periods + semester_room
+
+
+def majors_for_course(name: str) -> list[str]:
+    # majors that list this course as a junior or senior requirement
+    return [
+        major for major, info in MAJORS.items()
+        if name in info.get("Junior", []) or name in info.get("Senior", [])
+    ]

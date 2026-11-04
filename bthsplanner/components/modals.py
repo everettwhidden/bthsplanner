@@ -42,6 +42,14 @@ def course_detail_modal() -> rx.Component:
                         detail_line("Semesters", course["semesters"].to(str)),
                         detail_line("Credits", course["credits"].to(str)),
                         detail_line("Grades", course["grade_badges"].to(list[str]).join(", ")),
+                        detail_line(
+                            "Majors",
+                            rx.cond(
+                                course["majors"].to(list[str]).length() > 0,
+                                course["majors"].to(list[str]).join(", "),
+                                "None",
+                            ),
+                        ),
                         detail_line("Elective", rx.cond(course["is_elective"], "Yes", "No")),
                         align_items="start",
                         spacing="1",

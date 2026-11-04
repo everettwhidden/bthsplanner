@@ -1,6 +1,6 @@
 from data.courses import COURSE_CATALOG, MAJORS, AP_COURSES, SUMMARIES
 
-from .helpers import grade_badges
+from .helpers import grade_badges, majors_for_course
 
 
 def filter_explore_catalog(
@@ -43,12 +43,8 @@ def filter_explore_catalog(
             continue
 
         if majors:
-            in_major = any(
-                name in MAJORS.get(m, {}).get("Junior", [])
-                or name in MAJORS.get(m, {}).get("Senior", [])
-                for m in majors
-            )
-            if not in_major:
+            course_majors = majors_for_course(name)
+            if not any(m in course_majors for m in majors):
                 continue
 
         if period_lengths:

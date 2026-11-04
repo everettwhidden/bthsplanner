@@ -10,6 +10,7 @@ from .helpers import (
     calculate_total_periods,
     grade_badges,
     next_lang_level,
+    majors_for_course
 )
 
     
@@ -500,6 +501,7 @@ class PlannerState(rx.State):
                 data.get("grades", []),
                 data.get("available_grades", [])
             ),
+            "majors": majors_for_course(name),
         }
         self.is_detail_open = True
 
