@@ -4,6 +4,9 @@ from data.courses import alternates_with_gym, elective_color
 from bthsplanner.backend import DropdownOptions, MAJOR_COURSE_COLOR, PlannerState
 
 required_courses_labels = ["Major", "Required"]
+def card_border(color) -> str:
+    # fades the category color toward transparent, lower % = more see-through
+    return f"2px solid color-mix(in srgb, {color} 60%, transparent)"
 
 def course_card(label: str, course_name: str) -> rx.Component:
     color = MAJOR_COURSE_COLOR if label in required_courses_labels else PlannerState.dropdown_colors[course_name]
@@ -14,7 +17,7 @@ def course_card(label: str, course_name: str) -> rx.Component:
             class_name="course-card",
             style={
                 "background_color": theme.lighter_aa_blue,
-                "border": f"2px solid color-mix(in srgb, {color} 85%, {theme.border} 15%)"
+                "border": card_border(color)
             }
         ),
         on_click=PlannerState.open_course_details(course_name),
@@ -28,7 +31,7 @@ def elective_card(label: str, year: str) -> rx.Component:
             rx.text(label, class_name="card-title"),
             class_name="course-card", 
             on_click=PlannerState.open_course_details(label), 
-            style={"cursor": "pointer", "background_color" : theme.lighter_aa_blue, "border": f"2px solid color-mix(in srgb, {color} 85%, {theme.border} 15%)"}, 
+            style={"cursor": "pointer", "background_color" : theme.lighter_aa_blue, "border": card_border(color), }
         ),
         rx.button(
             "✕", 
@@ -54,7 +57,7 @@ def dropdown_card(label: str, options: list[str], value: rx.Var, on_change: any)
             class_name="dropdown-card-wrapper",
             style={
                 "background_color": theme.lighter_aa_blue,
-                "border": f"2px solid color-mix(in srgb, {color} 85%, {theme.border} 15%)"
+                "border": card_border(color)
             }
         ),
         on_click=PlannerState.open_course_details(value),
